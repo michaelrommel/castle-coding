@@ -1,0 +1,10 @@
+#! /bin/bash
+
+if [[ -x "${HOME}/software/go/bin/go1.20.4" ]]; then
+	GO=${HOME}/software/go/bin/go1.20.4
+else
+	GO=go
+fi
+
+#shellcheck disable=2086,2048
+"${GO}" $*

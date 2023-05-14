@@ -56,6 +56,7 @@ curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- 
 echo "Installing rust"
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 export PATH="${HOME}/.cargo/bin:${PATH}"
+rustup default stable
 
 echo "Installing asciidoctor extensions"
 # shellcheck disable=2154
@@ -64,4 +65,3 @@ if [[ "${http_proxy}" != "" ]]; then
 fi
 sudo gem install "${OPTS}" asciidoctor-diagram
 sudo gem install "${OPTS}" asciidoctor-pdf
-

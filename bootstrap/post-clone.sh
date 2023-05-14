@@ -2,7 +2,7 @@
 
 echo "Installing apt packages"
 sudo apt-get -y update
-sudo apt-get -y install curl git golang ruby-rubygems \
+sudo apt-get -y install curl git golang \
 	asciidoctor python3 python3-pip universal-ctags || exit
 
 # [[ -x "/usr/bin/uname" ]] && UNAME="/usr/bin/uname"
@@ -49,7 +49,7 @@ scversion="stable" # or "v0.4.7", or "latest"
 curl -sL "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJ
 # sudo cp "shellcheck-${scversion}/shellcheck" /usr/bin/
 
-if [[ ! -f "${HOME}/.fnm.sh" ]]; then
+if ! fnm -V >/dev/null 2>&1; then
 	echo "Installing the fast Node Manager (fnm)"
 	cd "${HOME}" || exit
 	curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell
@@ -61,11 +61,3 @@ if ! rustup -V >/dev/null 2>&1; then
 	export PATH="${HOME}/.cargo/bin:${PATH}"
 	rustup default stable
 fi
-
-echo "Installing asciidoctor extensions"
-# shellcheck disable=2154
-if [[ "${http_proxy}" != "" ]]; then
-	OPTS=" --http-proxy ${http_proxy}"
-fi
-sudo gem install "${OPTS}" asciidoctor-diagram
-sudo gem install "${OPTS}" asciidoctor-pdf

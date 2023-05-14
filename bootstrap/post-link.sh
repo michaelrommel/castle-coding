@@ -1,7 +1,7 @@
 #! /bin/bash
 
 echo "Installing node"
-source "${HOME}/.fnm.sh"
+source "${HOME}/.path.d/20_fnm.sh"
 fnm install 'lts/*'
 fnm default lts-latest
 

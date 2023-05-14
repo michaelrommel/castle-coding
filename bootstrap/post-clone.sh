@@ -49,14 +49,18 @@ scversion="stable" # or "v0.4.7", or "latest"
 curl -sL "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJ
 # sudo cp "shellcheck-${scversion}/shellcheck" /usr/bin/
 
-echo "Installing the fast Node Manager (fnm)"
-cd "${HOME}" || exit
-curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell
+if [[ ! -f "${HOME}/.fnm.sh" ]]; then
+	echo "Installing the fast Node Manager (fnm)"
+	cd "${HOME}" || exit
+	curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell
+fi
 
-echo "Installing rust"
-curl https://sh.rustup.rs -sSf | sh -s -- -y
-export PATH="${HOME}/.cargo/bin:${PATH}"
-rustup default stable
+if ! rustup -V >/dev/null 2>&1; then
+	echo "Installing rust"
+	curl https://sh.rustup.rs -sSf | sh -s -- -y
+	export PATH="${HOME}/.cargo/bin:${PATH}"
+	rustup default stable
+fi
 
 echo "Installing asciidoctor extensions"
 # shellcheck disable=2154

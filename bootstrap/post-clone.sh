@@ -57,15 +57,6 @@ echo "Installing rust"
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 export PATH="${HOME}/.cargo/bin:${PATH}"
 
-export GOPATH="${HOME}/software/go"
-export PATH="${HOME}/software/go/bin:${PATH}"
-GOVERSION=$(go version | { read _ _ v _; echo ${v#go}; })
-if [[ -z "${GOVERSION}" || "$(echo "${GOVERSION%.*} < 1.20" | bc)" -eq 1 ]]; then
-  echo "Updating go"
-  go get golang.org/dl/go1.20.4
-  go1.20.4 download
-fi
-
 echo "Installing asciidoctor extensions"
 # shellcheck disable=2154
 if [[ "${http_proxy}" != "" ]]; then

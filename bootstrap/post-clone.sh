@@ -2,7 +2,11 @@
 
 echo "Installing apt packages"
 sudo apt-get -y update
-sudo apt-get -y install curl git golang \
+sudo apt-get -y install curl git \
+	libfontconfig1-dev libfontconfig1 libfreetype-dev libfreetype6 \
+	libharfbuzz-dev libx11-xcb-dev \
+	libxcb-render0-dev libxcb-render0 libxcb-shape0-dev libxcb-shape0 \
+	libxcb-xfixes0-dev libxcb-xfixes0 \
 	asciidoctor python3 python3-pip universal-ctags || exit
 
 # [[ -x "/usr/bin/uname" ]] && UNAME="/usr/bin/uname"
@@ -63,3 +67,7 @@ if ! rustup -V >/dev/null 2>&1; then
 	export PATH="${HOME}/.cargo/bin:${PATH}"
 	rustup default stable
 fi
+
+echo "Installing silicon"
+cargo install silicon
+

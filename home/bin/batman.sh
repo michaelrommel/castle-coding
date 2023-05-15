@@ -1,1 +1,1 @@
-../.bat/src/batman.sh
+../../../../../.bat/src/batman.sh

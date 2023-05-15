@@ -1,1 +1,1 @@
-../.bat/src/prettybat.sh
+../../../../../.bat/src/prettybat.sh

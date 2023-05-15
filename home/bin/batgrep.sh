@@ -1,1 +1,1 @@
-../.bat/src/batgrep.sh
+../../../../../.bat/src/batgrep.sh

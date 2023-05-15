@@ -1,1 +1,1 @@
-../.bat/src/batdiff.sh
+../../../../../.bat/src/batdiff.sh

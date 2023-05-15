@@ -1,1 +1,0 @@
-../../../../../.bat/src/batdiff.sh

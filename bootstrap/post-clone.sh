@@ -35,6 +35,8 @@ sudo dpkg -i "${HOME}/software/archives/bat_0.17.1_amd64.deb"
 echo "Installing bat-extras from github"
 cd "${HOME}" || exit
 git clone --depth 1 https://github.com/eth-p/bat-extras.git "${HOME}/.bat"
+cd "${HOME}/.bat" || exit
+./build.sh --no-manuals --no-verify
 
 echo "Installing fzf from github"
 # needs to come before zsh, as we are sourceing completion & keybindings there

@@ -1,0 +1,1 @@
+../.bat/src/prettybat.sh

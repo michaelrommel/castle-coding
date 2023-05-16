@@ -17,24 +17,24 @@ echo "Installing ripgrep from github"
 cd "${HOME}" || exit
 mkdir -p "${HOME}/software/archives"
 cd "${HOME}/software/archives" || exit
-curl -OL https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb
-sudo dpkg -i "${HOME}/software/archives/ripgrep_12.1.1_amd64.deb"
+curl -OL https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+sudo dpkg -i "${HOME}/software/archives/ripgrep_13.0.0_amd64.deb"
 
 echo "Installing fd from github"
 # provides faster find version, not available for Ubuntu 18.04
 cd "${HOME}" || exit
 mkdir -p "${HOME}/software/archives"
 cd "${HOME}/software/archives" || exit
-curl -OL https://github.com/sharkdp/fd/releases/download/v8.1.1/fd_8.1.1_amd64.deb
-sudo dpkg -i "${HOME}/software/archives/fd_8.1.1_amd64.deb"
+curl -OL https://github.com/sharkdp/fd/releases/download/v8.7.0/fd_8.7.0_amd64.deb
+sudo dpkg -i "${HOME}/software/archives/fd_8.7.0_amd64.deb"
 
 echo "Installing bat from github"
 # provides syntax highlighting pager
 cd "${HOME}" || exit
 mkdir -p "${HOME}/software/archives"
 cd "${HOME}/software/archives" || exit
-curl -OL https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
-sudo dpkg -i "${HOME}/software/archives/bat_0.17.1_amd64.deb"
+curl -OL https://github.com/sharkdp/bat/releases/download/v0.23.0/bat_0.23.0_amd64.deb
+sudo dpkg -i "${HOME}/software/archives/bat_0.23.0_amd64.deb"
 
 echo "Installing bat-extras from github"
 cd "${HOME}" || exit
@@ -70,4 +70,3 @@ fi
 
 echo "Installing silicon"
 cargo install silicon
-

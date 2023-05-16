@@ -12,4 +12,4 @@ npm install --global yarn
 echo "Updating theme caches"
 bat cache --build
 cd "${HOME}/.config/silicon" || exit
-silicon --build-cache
+"${HOME}/.cargo/bin/silicon" --build-cache

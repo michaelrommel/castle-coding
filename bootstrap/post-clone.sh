@@ -4,7 +4,9 @@ source "${HOME}/.homesick/helper.sh"
 
 echo "Installing dependency packages"
 if is_mac; then
-	desired=(curl git ripgrep@13.0 fd@8.7 bat@0.23 bat-extras@2023.03 fzf@0.39 shellcheck@0.9 shfmt@3.6 fnm@1.33 silicon@0.5 universal-ctags python@3.11)
+	desired=(curl git ripgrep@13.0 fd@8.7 bat@0.23 bat-extras@2023.03 \
+		fzf@0.39 shellcheck@0.9 shfmt@3.6 fnm@1.33 silicon@0.5 \
+		universal-ctags python@3.11)
 	missing=()
 	check_brewed "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then

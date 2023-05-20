@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 if ! node --version >/dev/null 2>&1; then
 	echo "Installing node"

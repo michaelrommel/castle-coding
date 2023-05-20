@@ -13,8 +13,10 @@ if is_mac; then
 		echo "(brew) installing ${missing[*]}"
 		brew install "${missing[@]}"
 	fi
-	# add pip3
-	python3 -mensurepip
+	if ! python3 -c 'import pip;' >/dev/null 2>&1; then
+		# add pip3
+		python3 -mensurepip
+	fi
 else
 	desired=(libfontconfig1-dev libfontconfig1 libfreetype-dev libfreetype6
 		libharfbuzz-dev libx11-xcb-dev

@@ -16,4 +16,9 @@ fi
 echo "Updating theme caches"
 bat cache --build 1>/dev/null
 cd "${HOME}/.config/silicon" || exit
-"${HOME}/.cargo/bin/silicon" --build-cache 1>/dev/null
+
+# paths are not refreshed yet
+source "${HOME}/.path.d/15_rust.sh"
+# now it will take silicon from HOME/.cargo under linux
+# or from /opt/homebrew/ on macOS
+silicon --build-cache 1>/dev/null

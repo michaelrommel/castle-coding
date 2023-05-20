@@ -27,49 +27,63 @@ else
 		sudo apt-get -y install "${missing[@]}"
 	fi
 
-	echo "Installing ripgrep from github"
-	cd "${HOME}" || exit
-	mkdir -p "${HOME}/software/archives"
-	cd "${HOME}/software/archives" || exit
-	curl -OL https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
-	sudo dpkg -i "${HOME}/software/archives/ripgrep_13.0.0_amd64.deb"
+	if ! rg -V >/dev/null 2>&1; then
+		echo "Installing ripgrep from github"
+		cd "${HOME}" || exit
+		mkdir -p "${HOME}/software/archives"
+		cd "${HOME}/software/archives" || exit
+		curl -OL https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+		sudo dpkg -i "${HOME}/software/archives/ripgrep_13.0.0_amd64.deb"
+	fi
 
-	echo "Installing fd from github"
-	# provides faster find version, not available for Ubuntu 18.04
-	cd "${HOME}" || exit
-	mkdir -p "${HOME}/software/archives"
-	cd "${HOME}/software/archives" || exit
-	curl -OL https://github.com/sharkdp/fd/releases/download/v8.7.0/fd_8.7.0_amd64.deb
-	sudo dpkg -i "${HOME}/software/archives/fd_8.7.0_amd64.deb"
+	if ! fd -V >/dev/null 2>&1; then
+		echo "Installing fd from github"
+		# provides faster find version, not available for Ubuntu 18.04
+		cd "${HOME}" || exit
+		mkdir -p "${HOME}/software/archives"
+		cd "${HOME}/software/archives" || exit
+		curl -OL https://github.com/sharkdp/fd/releases/download/v8.7.0/fd_8.7.0_amd64.deb
+		sudo dpkg -i "${HOME}/software/archives/fd_8.7.0_amd64.deb"
+	fi
 
-	echo "Installing bat from github"
-	# provides syntax highlighting pager
-	cd "${HOME}" || exit
-	mkdir -p "${HOME}/software/archives"
-	cd "${HOME}/software/archives" || exit
-	curl -OL https://github.com/sharkdp/bat/releases/download/v0.23.0/bat_0.23.0_amd64.deb
-	sudo dpkg -i "${HOME}/software/archives/bat_0.23.0_amd64.deb"
+	if ! bat -V >/dev/null 2>&1; then
+		echo "Installing bat from github"
+		# provides syntax highlighting pager
+		cd "${HOME}" || exit
+		mkdir -p "${HOME}/software/archives"
+		cd "${HOME}/software/archives" || exit
+		curl -OL https://github.com/sharkdp/bat/releases/download/v0.23.0/bat_0.23.0_amd64.deb
+		sudo dpkg -i "${HOME}/software/archives/bat_0.23.0_amd64.deb"
+	fi
 
-	echo "Installing bat-extras from github"
-	cd "${HOME}" || exit
-	git clone --depth 1 https://github.com/eth-p/bat-extras.git "${HOME}/.bat"
-	cd "${HOME}/.bat" || exit
-	./build.sh --no-manuals --no-verify
+	if [[ ! -f "${HOME}/.bat/bin/batman" ]]; then
+		echo "Installing bat-extras from github"
+		cd "${HOME}" || exit
+		git clone --depth 1 https://github.com/eth-p/bat-extras.git "${HOME}/.bat"
+		cd "${HOME}/.bat" || exit
+		./build.sh --no-manuals --no-verify
+	fi
 
-	echo "Installing fzf from github"
-	# needs to come before zsh, as we are sourceing completion & keybindings there
-	cd "${HOME}" || exit
-	git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
-	"${HOME}/.fzf/install" --no-key-bindings --no-completion --no-update-rc --no-bash --no-zsh --no-fish
+	if ! fzf --version >/dev/null 2>&1; then
+		echo "Installing fzf from github"
+		# needs to come before zsh, as we are sourceing completion & keybindings there
+		cd "${HOME}" || exit
+		git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
+		"${HOME}/.fzf/install" --no-key-bindings --no-completion --no-update-rc --no-bash --no-zsh --no-fish
+	fi
 
-	echo "Installing shellcheck from github"
-	mkdir -p "${HOME}/software"
-	cd "${HOME}/software" || exit
-	scversion="stable" # or "v0.4.7", or "latest"
-	curl -sL "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJ
+	if ! shellcheck -V >/dev/null 2>&1; then
+		echo "Installing shellcheck from github"
+		mkdir -p "${HOME}/software"
+		cd "${HOME}/software" || exit
+		scversion="stable" # or "v0.4.7", or "latest"
+		curl -sL "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJ
+	fi
 
-	echo "Installing shell formatter shfmt via go"
-	go install mvdan.cc/sh/v3/cmd/shfmt@latest
+	if ! shfmt --version >/dev/null 2>&1; then
+		echo "Installing shell formatter shfmt via go"
+		go install mvdan.cc/sh/v3/cmd/shfmt@latest
+	fi
 
 	if ! fnm -V >/dev/null 2>&1; then
 		echo "Installing the fast Node Manager (fnm)"

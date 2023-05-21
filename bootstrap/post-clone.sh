@@ -98,7 +98,7 @@ fi
 
 if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
-	curl https://sh.rustup.rs -sSf | sh -s -- -y
+	curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 	export PATH="${HOME}/.cargo/bin:${PATH}"
 	rustup default stable
 fi

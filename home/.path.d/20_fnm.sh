@@ -3,15 +3,15 @@
 [[ -x "/usr/bin/uname" ]] && UNAME="/usr/bin/uname"
 [[ -x "/bin/uname" ]] && UNAME="/bin/uname"
 
-OSNAME=$( "${UNAME}" -s )
+OSNAME=$("${UNAME}" -s)
 
-# on macos, brew installed it already in /usr/local/bin
+# on macos, brew installed it already in /usr/local/bin or /opt/homebrew
 if [[ "${OSNAME}" != "Darwin" ]]; then
-  if [[ -d "${HOME}/.local/share/fnm" && ! "$PATH" == *${HOME}/.local/share/fnm* ]]; then
-    export PATH="${PATH:+${PATH}:}${HOME}/.local/share/fnm"
-  elif [[ -d "${HOME}/.fnm" &&  ! "$PATH" == *${HOME}/.fnm* ]]; then
-    export PATH="${PATH:+${PATH}:}${HOME}/.fnm"
-  fi
+	if [[ -d "${HOME}/.local/share/fnm" && ! ":${PATH}:" == *:${HOME}/.local/share/fnm:* ]]; then
+		export PATH="${PATH:+${PATH}:}${HOME}/.local/share/fnm"
+	elif [[ -d "${HOME}/.fnm" && ! ":${PATH}:" == *:${HOME}/.fnm:* ]]; then
+		export PATH="${PATH:+${PATH}:}${HOME}/.fnm"
+	fi
 fi
 
 eval "$(fnm env)"

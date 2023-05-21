@@ -18,7 +18,7 @@ fi
 
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == *${WHERE}/bin* ]]; then
+if [[ ! ":${PATH}:" == *:${WHERE}/bin:* ]]; then
   export PATH="${PATH:+${PATH}:}${WHERE}/bin"
 fi
 

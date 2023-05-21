@@ -18,7 +18,7 @@ bat cache --build 1>/dev/null
 cd "${HOME}/.config/silicon" || exit
 
 # paths are not refreshed yet
-source "${HOME}/.path.d/15_rust.sh"
+source "${HOME}/.path.d/10_rust.bash"
 # now it will take silicon from HOME/.cargo under linux
 # or from /opt/homebrew/ on macOS
 silicon --build-cache 1>/dev/null

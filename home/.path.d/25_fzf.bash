@@ -19,7 +19,7 @@ fi
 # Setup fzf
 # ---------
 if [[ ! ":${PATH}:" == *:${WHERE}/bin:* ]]; then
-	export PATH="${PATH:+${PATH}:}${WHERE}/bin"
+	export PATH="${WHERE}/bin${PATH:+:${PATH}}"
 fi
 
 # Auto-completion

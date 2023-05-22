@@ -18,5 +18,5 @@ fi
 # Setup bat-extras
 # ----------------
 if [[ ! ":${PATH}:" == *:${WHERE}/bin:* ]]; then
-	export PATH="${PATH:+${PATH}:}${WHERE}/bin"
+	export PATH="${WHERE}/bin${PATH:+:${PATH}}"
 fi

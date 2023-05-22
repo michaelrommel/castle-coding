@@ -5,21 +5,21 @@ OS=$(uname -o)
 FD=$(which fd)
 
 if [[ "${OS}" == "Darwin" ]]; then
-  if [[ "${ARCH}" == "arm64" ]]; then
-    # homebrew is installed in /opt/homebrew
-    WHERE=/opt/homebrew/opt/fzf
-  else
-    # homebrew is installed under /usr/local
-    WHERE=/usr/local/opt/fzf
-  fi
+	if [[ "${ARCH}" == "arm64" ]]; then
+		# homebrew is installed in /opt/homebrew
+		WHERE=/opt/homebrew/opt/fzf
+	else
+		# homebrew is installed under /usr/local
+		WHERE=/usr/local/opt/fzf
+	fi
 else
-  WHERE=${HOME}/.fzf
+	WHERE=${HOME}/.fzf
 fi
 
 # Setup fzf
 # ---------
 if [[ ! ":${PATH}:" == *:${WHERE}/bin:* ]]; then
-  export PATH="${PATH:+${PATH}:}${WHERE}/bin"
+	export PATH="${WHERE}/bin${PATH:+:${PATH}}"
 fi
 
 # Auto-completion
@@ -31,6 +31,6 @@ fi
 [[ -d "${HOME}/.fzf/" ]] && source "${WHERE}/shell/key-bindings.zsh"
 
 if [[ -x "${FD}" ]]; then
-  export FZF_DEFAULT_COMMAND='fd --type file'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+	export FZF_DEFAULT_COMMAND='fd --type file'
+	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi

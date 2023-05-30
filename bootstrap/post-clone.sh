@@ -86,6 +86,7 @@ else
 
 	if ! shfmt --version >/dev/null 2>&1; then
 		echo "Installing shell formatter shfmt via go"
+		source "${HOME}/.path.d/40_go.sh"
 		go install mvdan.cc/sh/v3/cmd/shfmt@latest
 	fi
 

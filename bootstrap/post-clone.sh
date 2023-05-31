@@ -6,7 +6,7 @@ echo "Installing dependency packages"
 if is_mac; then
 	desired=(ripgrep@13.0 fd@8.7 bat@0.23 bat-extras@2023.03
 		fzf@0.39 shellcheck@0.9 shfmt@3.6 fnm@1.33 silicon@0.5
-		universal-ctags python@3.11)
+		universal-ctags python@3.11 pyenv)
 	missing=()
 	check_brewed "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then
@@ -22,7 +22,10 @@ else
 		libharfbuzz-dev libx11-xcb-dev
 		libxcb-render0-dev libxcb-render0 libxcb-shape0-dev libxcb-shape0
 		libxcb-xfixes0-dev libxcb-xfixes0
-		asciidoctor python3 python3-pip universal-ctags)
+		asciidoctor universal-ctags
+		python3 python3-pip
+		build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
+		libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev)
 	missing=()
 	check_dpkged "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then
@@ -94,6 +97,12 @@ else
 		echo "Installing the fast Node Manager (fnm)"
 		cd "${HOME}" || exit
 		curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell
+	fi
+
+	if ! command -v pyenv >/dev/null 2>&1; then
+		echo "Installing the Python Version Manager (pyenv)"
+		cd "${HOME}" || exit
+		curl -sL https://pyenv.run | bash
 	fi
 fi
 

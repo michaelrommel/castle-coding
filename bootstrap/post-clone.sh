@@ -90,35 +90,30 @@ else
 	if ! shfmt --version >/dev/null 2>&1; then
 		echo "Installing shell formatter shfmt via go"
 		source "${HOME}/.path.d/40_go.sh"
+		source "${HOME}/.path.d/50_rtx.bash"
+		source "${HOME}/.path.d/99_default.sh"
 		go install mvdan.cc/sh/v3/cmd/shfmt@latest
 	fi
 
-	# if ! fnm -V >/dev/null 2>&1; then
-	# 	echo "Installing the fast Node Manager (fnm)"
-	# 	cd "${HOME}" || exit
-	# 	curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell
-	# fi
-	#
-	# if ! command -v pyenv >/dev/null 2>&1; then
-	# 	echo "Installing the Python Version Manager (pyenv)"
-	# 	cd "${HOME}" || exit
-	# 	curl -sL https://pyenv.run | bash
-	# fi
 fi
 
 if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
-	curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
-	export PATH="${HOME}/.cargo/bin:${PATH}"
-	rustup default stable
+	# paths for rtx and shims
+	source "${HOME}/.path.d/50_rtx.bash"
+	source "${HOME}/.path.d/99_default.sh"
+	rtx plugin install rust
+	rtx install rust@latest
+	rtx use -g rust@latest
+	# install shell completions
+	mkdir -p "${HOME}/.rust/shell"
+	rustup completions bash >"${HOME}/.rust/shell/completion_rustup.bash"
+	rustup completions bash cargo >"${HOME}/.rust/shell/completion_cargo.bash"
+	rustup completions zsh >"${HOME}/.rust/shell/_rustup"
+	rustup completions zsh cargo >"${HOME}/.rust/shell/_cargo"
 fi
 
 if ! silicon -V >/dev/null 2>&1; then
 	echo "Installing silicon"
 	cargo install silicon
-fi
-
-if ! rtx -V >/dev/null 2>&1; then
-	echo "Installing rtx"
-	cargo install rtx-cli
 fi

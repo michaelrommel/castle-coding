@@ -2,10 +2,12 @@
 
 if ! node --version >/dev/null 2>&1; then
 	echo "Installing node"
-	# source "${HOME}/.path.d/20_fnm.sh"
-	# fnm install 'lts/*'
-	# fnm default lts-latest
+	# paths for rtx and shims
+	source "${HOME}/.path.d/50_rtx.bash"
+	source "${HOME}/.path.d/99_default.sh"
+	rtx plugin install node
 	rtx install node@latest
+	rtx use -g node@latest
 fi
 
 if ! yarn --version >/dev/null 2>&1; then
@@ -19,7 +21,10 @@ bat cache --build 1>/dev/null
 cd "${HOME}/.config/silicon" || exit
 
 # paths are not refreshed yet
-source "${HOME}/.path.d/10_rust.bash"
-# now it will take silicon from HOME/.cargo under linux
+# paths for rtx and shims
+source "${HOME}/.path.d/50_rtx.bash"
+source "${HOME}/.path.d/99_default.sh"
+rtx hook-env
+# now it will take silicon from rtx path under linux
 # or from /opt/homebrew/ on macOS
 silicon --build-cache 1>/dev/null

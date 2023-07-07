@@ -53,6 +53,14 @@ else
 		sudo dpkg -i "${HOME}/software/archives/fd_8.7.0_amd64.deb"
 	fi
 
+	if ! shfmt --version >/dev/null 2>&1; then
+		echo "Installing shell formatter shfmt via go"
+		source "${HOME}/.path.d/40_go.sh"
+		source "${HOME}/.path.d/50_rtx.bash"
+		source "${HOME}/.path.d/99_default.sh"
+		go install mvdan.cc/sh/v3/cmd/shfmt@latest
+	fi
+
 	if ! bat -V >/dev/null 2>&1; then
 		echo "Installing bat from github"
 		# provides syntax highlighting pager
@@ -86,15 +94,6 @@ else
 		scversion="stable" # or "v0.4.7", or "latest"
 		curl -sL "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJ
 	fi
-
-	if ! shfmt --version >/dev/null 2>&1; then
-		echo "Installing shell formatter shfmt via go"
-		source "${HOME}/.path.d/40_go.sh"
-		source "${HOME}/.path.d/50_rtx.bash"
-		source "${HOME}/.path.d/99_default.sh"
-		go install mvdan.cc/sh/v3/cmd/shfmt@latest
-	fi
-
 fi
 
 if ! rustup -V >/dev/null 2>&1; then

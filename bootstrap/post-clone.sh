@@ -2,6 +2,14 @@
 
 source "${HOME}/.homesick/helper.sh"
 
+# if we do not set those paths here, then all installed binaries
+# that were installed using rtx, cannot be found. We want to be able
+# to rerun this script multiple times without errors
+source "${HOME}/.path.d/40_go.sh"
+source "${HOME}/.path.d/50_rtx.bash"
+source "${HOME}/.path.d/99_default.sh"
+eval "$(rtx hook-env)"
+
 echo "Installing dependency packages"
 if is_mac; then
 	desired=(ripgrep@13.0 fd@8.7 bat@0.23 bat-extras@2023.03
@@ -55,9 +63,6 @@ else
 
 	if ! shfmt --version >/dev/null 2>&1; then
 		echo "Installing shell formatter shfmt via go"
-		source "${HOME}/.path.d/40_go.sh"
-		source "${HOME}/.path.d/50_rtx.bash"
-		source "${HOME}/.path.d/99_default.sh"
 		go install mvdan.cc/sh/v3/cmd/shfmt@latest
 	fi
 
@@ -98,9 +103,6 @@ fi
 
 if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
-	# paths for rtx and shims
-	source "${HOME}/.path.d/50_rtx.bash"
-	source "${HOME}/.path.d/99_default.sh"
 	rtx plugin install rust
 	rtx install rust@latest
 	rtx use -g rust@latest

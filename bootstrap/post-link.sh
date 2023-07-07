@@ -24,7 +24,7 @@ cd "${HOME}/.config/silicon" || exit
 # paths for rtx and shims
 source "${HOME}/.path.d/50_rtx.bash"
 source "${HOME}/.path.d/99_default.sh"
-rtx hook-env
+eval "$(rtx hook-env)"
 # now it will take silicon from rtx path under linux
 # or from /opt/homebrew/ on macOS
 silicon --build-cache 1>/dev/null

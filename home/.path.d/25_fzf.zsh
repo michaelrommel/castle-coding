@@ -1,7 +1,7 @@
 #! /usr/bin/zsh
 
 ARCH=$(uname -m)
-OS=$(uname -o)
+OS=$(uname -s)
 FD=$(which fd)
 
 if [[ "${OS}" == "Darwin" ]]; then

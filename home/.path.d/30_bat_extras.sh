@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ARCH=$(uname -m)
-OS=$(uname -o)
+OS=$(uname -s)
 
 if [[ "${OS}" == "Darwin" ]]; then
 	if [[ "${ARCH}" == "arm64" ]]; then

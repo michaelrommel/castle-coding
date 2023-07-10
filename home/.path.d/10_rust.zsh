@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bib/env zsh
 
 # if [[ -d "${HOME}/.cargo/bin" && ! ":${PATH}:" == *:${HOME}/.cargo/bin:* ]]; then
 # 	# path has not yet been added

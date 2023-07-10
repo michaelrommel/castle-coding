@@ -1,4 +1,4 @@
-#! /usr/bin/zsh
+#! /usr/bin/env zsh
 
 ARCH=$(uname -m)
 OS=$(uname -s)
@@ -24,7 +24,7 @@ fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && [[ -d "${WHERE}/" ]] && source "${WHERE}/shell/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && [[ -d "${WHERE}/" ]] && source "${WHERE}/shell/completion.zsh" 2>/dev/null
 
 # Key bindings
 # ------------

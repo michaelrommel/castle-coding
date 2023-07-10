@@ -6,7 +6,6 @@ source "${HOME}/.path.d/99_default.sh"
 
 if ! node --version >/dev/null 2>&1; then
 	echo "Installing node"
-	rtx plugin install node
 	rtx install node@latest
 	rtx use -g node@latest
 fi

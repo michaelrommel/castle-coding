@@ -28,7 +28,7 @@ fi
 
 # Key bindings
 # ------------
-[[ -d "${HOME}/.fzf/" ]] && source "${WHERE}/shell/key-bindings.bash"
+[[ -d "${WHERE}" ]] && source "${WHERE}/shell/key-bindings.bash"
 
 if [[ -x "${FD}" ]]; then
 	export FZF_DEFAULT_COMMAND='fd --type file'

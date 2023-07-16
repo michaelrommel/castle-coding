@@ -19,7 +19,7 @@ fi
 # Setup fzf
 # ---------
 if [[ ! ":${PATH}:" == *:${WHERE}/bin:* ]]; then
-	export PATH="${WHERE}/bin${PATH:+:${PATH}}"
+	export PATH="${WHERE}/bin:${PATH}"
 fi
 
 # Auto-completion
@@ -28,7 +28,7 @@ fi
 
 # Key bindings
 # ------------
-[[ -d "${HOME}/.fzf/" ]] && source "${WHERE}/shell/key-bindings.zsh"
+[[ -d "${WHERE}" ]] && source "${WHERE}/shell/key-bindings.zsh"
 
 if [[ -x "${FD}" ]]; then
 	export FZF_DEFAULT_COMMAND='fd --type file'

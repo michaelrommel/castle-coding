@@ -103,7 +103,7 @@ fi
 
 if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
-	mise plugin install --yes rust
+	# mise plugin install --yes rust
 	mise install rust@latest
 	mise use -g rust@latest
 	# install shell completions

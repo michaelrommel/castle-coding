@@ -23,4 +23,6 @@ function br {
 	fi
 }
 
-broot --set-install-state installed
+if [[ ! -f "${HOME}/.config/broot/launcher/installed-v4" ]]
+	broot --set-install-state installed
+fi

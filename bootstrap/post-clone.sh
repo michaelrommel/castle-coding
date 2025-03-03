@@ -14,7 +14,7 @@ echo "Installing dependency packages"
 if is_mac; then
 	desired=(ripgrep@13.0 fd@8.7 bat@0.23 bat-extras@2023.03
 		fzf@0.39 shellcheck@0.9 shfmt@3.6 fnm@1.33 silicon@0.5
-		universal-ctags python@3.11 broot mise pyenv pyenv-virtualenv)
+		universal-ctags python@3.11 mise pyenv pyenv-virtualenv)
 	missing=()
 	check_brewed "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then
@@ -117,9 +117,4 @@ fi
 if ! silicon -V >/dev/null 2>&1; then
 	echo "Installing silicon"
 	cargo install silicon
-fi
-
-if ! broot --version >/dev/null 2>&1; then
-	echo "Installing broot"
-	cargo install broot
 fi

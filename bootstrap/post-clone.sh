@@ -14,16 +14,13 @@ echo "Installing dependency packages"
 if is_mac; then
 	desired=(ripgrep@13.0 fd@8.7 bat@0.23 bat-extras@2023.03
 		fzf@0.39 shellcheck@0.9 shfmt@3.6 fnm@1.33 silicon@0.5
-		universal-ctags python@3.11 mise pyenv pyenv-virtualenv)
+		universal-ctags mise)
+	# pyenv pyenv-virtualenv
 	missing=()
 	check_brewed "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then
 		echo "(brew) installing ${missing[*]}"
 		brew install "${missing[@]}"
-	fi
-	if ! python3 -c 'import pip;' >/dev/null 2>&1; then
-		# add pip3
-		python3 -mensurepip
 	fi
 else
 	desired=(libfontconfig1-dev libfontconfig1 libfreetype-dev libfreetype6
@@ -31,7 +28,6 @@ else
 		libxcb-render0-dev libxcb-render0 libxcb-shape0-dev libxcb-shape0
 		libxcb-xfixes0-dev libxcb-xfixes0
 		asciidoctor universal-ctags
-		python3 python3-pip
 		build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
 		libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev)
 	missing=()
@@ -103,9 +99,9 @@ fi
 
 if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
-	# mise plugin install --yes rust
 	mise install rust@latest
 	mise use -g rust@latest
+	cargo component add rust-analyzer
 	# install shell completions
 	mkdir -p "${HOME}/.rust/shell"
 	rustup completions bash >"${HOME}/.rust/shell/completion_rustup.bash"
@@ -114,7 +110,18 @@ if ! rustup -V >/dev/null 2>&1; then
 	rustup completions zsh cargo >"${HOME}/.rust/shell/_cargo"
 fi
 
-if ! silicon -V >/dev/null 2>&1; then
-	echo "Installing silicon"
-	cargo install silicon
+if ! grep -qs python ~/.config/mise/config.toml; then
+	# install python with mise, to avoit cluttering the global installation with modules
+	mise install python@latest
+	mise use -g python@latest
+fi
+
+if ! python3 -c 'import pip;' >/dev/null 2>&1; then
+	echo "Installing pip"
+	python3 -mensurepip
+fi
+
+if ! pipx --version >/dev/null 2>&1; then
+	echo "Installing pipx"
+	python3 -mpip install --user pipx
 fi

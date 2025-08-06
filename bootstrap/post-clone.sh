@@ -101,7 +101,7 @@ if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
 	mise install rust@latest
 	mise use -g rust@latest
-	hash -r
+	eval "$(mise hook-env)"
 	# install shell completions
 	mkdir -p "${HOME}/.rust/shell"
 	rustup completions bash >"${HOME}/.rust/shell/completion_rustup.bash"

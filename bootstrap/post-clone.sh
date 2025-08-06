@@ -101,13 +101,14 @@ if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
 	mise install rust@latest
 	mise use -g rust@latest
-	cargo component add rust-analyzer
+	hash -r
 	# install shell completions
 	mkdir -p "${HOME}/.rust/shell"
 	rustup completions bash >"${HOME}/.rust/shell/completion_rustup.bash"
 	rustup completions bash cargo >"${HOME}/.rust/shell/completion_cargo.bash"
 	rustup completions zsh >"${HOME}/.rust/shell/_rustup"
 	rustup completions zsh cargo >"${HOME}/.rust/shell/_cargo"
+	rustup component add rust-analyzer
 fi
 
 if ! grep -qs python ~/.config/mise/config.toml; then
